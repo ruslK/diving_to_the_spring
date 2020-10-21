@@ -4,6 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="java" class="com.springLearning.servises.Java"/>
+    <bean id="java" class="com.springLearning.servises.Java">
+        <constructor-arg ref="officeHours"></constructor-arg>
+    </bean>
     <bean id="selenium" class="com.springLearning.servises.Selenium"/>
+    <bean id="officeHours" class="com.springLearning.servises.OfficeHours"/>
 </beans>
