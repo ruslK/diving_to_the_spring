@@ -1,5 +1,4 @@
-package springLearning.servises;
-
+package springLearning.services;
 
 import lombok.Data;
 import springLearning.interfaces.Course;

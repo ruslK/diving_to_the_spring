@@ -4,9 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="java" class="springLearning.servises.Java">
-        <property name="extraSession" ref="officeHoursBean"></property>
+    <bean id="java" class="springLearning.services.Java">
+        <property name="extraSession" ref="officeHoursBean"/>
     </bean>
-    <bean id="selenium" class="springLearning.servises.Selenium"/>
-    <bean id="officeHoursBean" class="springLearning.servises.OfficeHours"/>
+    <bean id="selenium" class="springLearning.services.Selenium"/>
+    <bean id="officeHoursBean" class="springLearning.services.OfficeHours"/>
 </beans>

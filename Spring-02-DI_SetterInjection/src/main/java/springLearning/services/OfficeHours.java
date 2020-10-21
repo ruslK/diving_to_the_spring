@@ -1,5 +1,4 @@
-package springLearning.servises;
-
+package springLearning.services;
 
 import springLearning.interfaces.ExtraSession;
 
