@@ -12,5 +12,8 @@ public class App {
         Course course = conteiner.getBean("java", Course.class);
         course.getTeachingHours();
 
+        Course course2 = conteiner.getBean("selenium", Course.class);
+        course2.getTeachingHours();
+
     }
 }
