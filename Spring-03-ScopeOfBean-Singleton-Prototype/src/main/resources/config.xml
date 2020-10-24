@@ -4,6 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="java" class="services.Java" init-method="initMethod"/>
-    <bean id="selenium" class="services.Selenium" scope="prototype" init-method="initMethod"/>
+    <bean id="java" class="services.Java" init-method="initMethod" destroy-method="destroyMethod"/>
+    <bean id="selenium" class="services.Selenium" init-method="initMethod" destroy-method="destroyMethod2"/>
 </beans>
