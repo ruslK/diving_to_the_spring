@@ -3,7 +3,7 @@ package study.services;
 import org.springframework.stereotype.Component;
 import study.interfaces.Sessions;
 
-@Component //@Qualifier("sessionOne")
+@Component
 public class SessionOne implements Sessions {
 
     @Override
