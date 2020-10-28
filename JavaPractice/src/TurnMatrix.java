@@ -5,32 +5,32 @@ public class TurnMatrix {
 
     @Test
     public void test1() {
-        int arr[][] = {{1, 2}, {3, 4}};
-        int expected[][] = {{3, 1}, {4, 2}};
-        int actual[][] = turnMatrix(arr);
+        int[][] arr = {{1, 2}, {3, 4}};
+        int[][] expected = {{3, 1}, {4, 2}};
+        int[][] actual = turnMatrix(arr);
         Assert.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void test2() {
-        int arr[][] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-        int expected[][] = {{7, 4, 1}, {8, 5, 2}, {9, 6, 3}};
-        int actual[][] = turnMatrix(arr);
+        int[][] arr = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        int[][] expected = {{7, 4, 1}, {8, 5, 2}, {9, 6, 3}};
+        int[][] actual = turnMatrix(arr);
         Assert.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void test3() {
-        int arr[][] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
-        int expected[][] = {{13, 9, 5, 1}, {14, 10, 6, 2}, {15, 11, 7, 3}, {16, 12, 8, 4}};
-        int actual[][] = turnMatrix(arr);
+        int[][] arr = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+        int[][] expected = {{13, 9, 5, 1}, {14, 10, 6, 2}, {15, 11, 7, 3}, {16, 12, 8, 4}};
+        int[][] actual = turnMatrix(arr);
         Assert.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void test4() {
-        int arr[][] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}, {17, 18}};
-        int actual[][] = turnMatrix(arr);
+        int[][] arr = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}, {17, 18}};
+        int[][] actual = turnMatrix(arr);
         Assert.assertArrayEquals(arr, actual);
     }
 
@@ -40,7 +40,7 @@ public class TurnMatrix {
                 return matrix;
             }
         }
-        int length = 0;
+        int length;
         if (matrix.length % 2 == 0) {
             length = matrix.length / 2;
         } else {
