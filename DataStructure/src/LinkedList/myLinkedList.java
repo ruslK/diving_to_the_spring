@@ -59,8 +59,6 @@ public class myLinkedList {
 
     public void printLinkedList() {
         if (isEmpty()) System.out.println("EMPTY");
-        ;
-
         var current = first;
 
         while (current != null) {
@@ -69,16 +67,78 @@ public class myLinkedList {
         }
     }
 
+    public void reverse() {
+        var previous = first;
+        var current = first.next;
+
+        while (current != null) {
+            var nextNote = current.next;
+            current.next = previous;
+            previous = current;
+            current = nextNote;
+        }
+        last = first;
+        last.next = null;
+        first = previous;
+    }
+
+    public int getKhFromTheEnd(int k) {
+        var a = first;
+        var b = first;
+
+        for (int i = 0; i < k - 1; i++) {
+            b = b.next;
+        }
+
+        while (b != last) {
+            a = a.next;
+            b = b.next;
+        }
+        return a.value;
+    }
+
+    public int getKhFromTheEnd2(int k) {
+        var b = first;
+        for (int i = 0; i < (this.size) - k; i++) {
+            b = b.next;
+        }
+        return b.value;
+    }
+
+
+    public void printMiddle() {
+        var a = first;
+        var b = first;
+
+        while (b != last && b.next != last) {
+            b = b.next.next;
+            a = a.next;
+        }
+
+        if (b == last) {
+            System.out.println(a.value);
+        } else
+            System.out.println(a.value + " " + a.next.value);
+    }
+
 
     public static void main(String[] args) {
         var link = new myLinkedList();
-        System.out.println(link.isEmpty());
-        link.printLinkedList();
-        link.addLast(1);
-        link.addLast(2);
-        link.addLast(3);
-        link.printLinkedList();
-
+//        System.out.println(link.isEmpty());
+//        link.printLinkedList();
+        link.addLast(543);
+        link.addLast(32);
+        link.addLast(35);
+        link.addLast(234);
+        link.addLast(4565);
+        link.addLast(456234234);
+//        link.printLinkedList();
+//        System.out.println();
+//        link.reverse();
+//        link.printLinkedList();
+        System.out.println(link.getKhFromTheEnd(4));
+        System.out.println(link.getKhFromTheEnd2(4));
+        link.printMiddle();
     }
 
 
