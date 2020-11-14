@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2 th:text="${'My Name is ' + name}">my Name is name</h2>
+<h2 th:text="${subject}">subject</h2>
+<h2 th:text="${studentID}">studentID</h2>
+<h2 th:text="${number}">number</h2>
+<h2 th:text="${number.get(0)}">number</h2>
+<br>
+<h1 th:datetime="${date}"></h1>
+<h1 th:text="${date}">date</h1>
+
+
+<h3 th:text="${student.getFirstName()}">student</h3>
+</body>
+</html>
