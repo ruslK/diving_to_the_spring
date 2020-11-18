@@ -5,6 +5,10 @@
     <title>Title</title>
 </head>
 <body>
+<a th:href="@{http://google.com}">Google</a>
+<a th:href="@{/student/mentors}">Mentors</a>
+<a th:href="@{/mentor/list}">Mentors List</a>
+<br>
 <h2 th:text="${'My Name is ' + name}">my Name is name</h2>
 <h2 th:text="${subject}">subject</h2>
 <h2 th:text="${studentID}">studentID</h2>
@@ -13,8 +17,17 @@
 <br>
 <h1 th:datetime="${date}"></h1>
 <h1 th:text="${date}">date</h1>
-
-
 <h3 th:text="${student.getFirstName()}">student</h3>
+
+<a th:href="@{/student/welcome(id=${student.getId})}"> Links with ID</a>
+
+
+<!-- Iteration-->
+<ul>
+    <li th:each="num: ${number}" th:text="${num}"></li>
+</ul>
+
+
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -36,4 +36,9 @@ public class controller {
         model.addAttribute("student", st);
         return "student/welcome";
     }
+
+    @GetMapping("/mentors")
+    public String getMentors() {
+        return "mentors/mentor";
+    }
 }

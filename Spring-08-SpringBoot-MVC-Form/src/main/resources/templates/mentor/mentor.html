@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1 align="center"> Mentor Registration </h1>
+
+<div align="center">
+    <form th:object="${mentor}" action="/mentor/confirm" method="post">
+        <div>
+            <labal for="firstName">First Name</labal>
+            <input th:field="*{firstName}" type="text" name="firstName" id="firstName" placeholder="Enter First Name">
+        </div>
+        <br>
+        <div>
+            <labal for="lastName">Last Name</labal>
+            <input th:field="*{lastName}" type="text" name="lastName" id="lastname" placeholder="Enter Last Name">
+        </div>
+
+        <br>
+        <div>
+            <labal for="email">E-Mail</labal>
+            <input th:field="*{email}" type="email" name="email" id="email" placeholder="Enter Email">
+        </div>
+
+
+        <br>
+        <div>
+            <labal for="graduated">Graduated</labal>
+            <input th:field="*{graduated}" type="checkbox" name="graduated" id="graduated" placeholder="Enter Email">
+        </div>
+
+        <br>
+        <div>
+            <labal for="gender">Gender</labal>
+            <input th:field="*{gender}" type="radio" name="gender" id="genderMale" value="MALE"> Male
+            <input th:field="*{gender}" type="radio" name="gender" id="genderFemale" value="FEMALE"> Female
+        </div>
+
+        <br>
+        <div>
+            <labal for="batch">Batch</labal>
+            <select th:field="*{batch}" name="batch" id="batch">
+                <option value="Select">Select</option>
+                <option th:each="batch : ${batchList}" th:value="${batch}" th:text="${batch}"></option>
+            </select>
+        </div>
+
+        <br>
+        <div>
+            <labal for="company">Company</labal>
+            <textarea th:field="*{company}" name="company" id="company" placeholder="Enter Company Name"></textarea>
+        </div>
+
+
+        <button type="submit" th:onsubmit="">Register</button>
+    </form>
+</div>
+
+</body>
+</html>
