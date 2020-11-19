@@ -1,5 +1,6 @@
 package com.forms.model;
 
+import com.forms.datagenerator.DataGenerator;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -27,5 +28,9 @@ public class Employee {
         LocalDate cd = LocalDate.now();
         this.age = cd.getYear() - dd.getYear();
         return age;
+    }
+
+    public String getStateName() {
+        return DataGenerator.mapOfUSStates.get(this.state);
     }
 }

@@ -2,42 +2,42 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <script th:replace="fragments/bootsrapdata :: bootstrap"></script>
-    <title>Employee Registration</title>
+    <title>Employees - Table</title>
 </head>
 <body>
-<div class="card">
-    <h5 class="card-header" align="center">Employee List</h5>
-    <div class="card-body">
-        <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0"
-               width="100%">
-            <thead align="center">
-            <tr>
-                <th class="th-">First Name</th>
-                <th class="th-">Last Name</th>
-                <th class="th-">Age</th>
-                <th class="th-">Address</th>
-                <th class="th-">City</th>
-                <th class="th-">State</th>
-                <th class="th-">ZIP</th>
-            </tr>
-            </thead>
-            <tbody align="center">
-            <tr th:each="employee : ${listEmployee}">
-                <td align="left" th:text="${employee.firstName}"></td>
-                <td align="left" th:text="${employee.lastName}"></td>
-                <td align="center" th:text="${employee.getAge}"></td>
-                <td align="left" th:text="${employee.address1 + ', ' + employee.address2}"></td>
-                <td align="left" th:text="${employee.city}"></td>
-                <td align="left" th:text="${employee.state}"></td>
-                <td align="center" th:text="${employee.zip}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class="card">
-    <div class="card-body">
-        <a th:href="@{/employee/registration}">Return to Employee Registration</a>
+<div class="container d-flex justify-content-center align-middle mx-auto">
+    <div class="card">
+        <h5 class="card-header" align="center">Employee List</h5>
+        <div class="card-body">
+            <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="1"
+                   width="100%">
+                <thead align="center">
+                <tr>
+                    <th class="th-">First Name</th>
+                    <th class="th-">Last Name</th>
+                    <th class="th-">Age</th>
+                    <th class="th-">Address</th>
+                    <th class="th-">City</th>
+                    <th class="th-">State</th>
+                    <th class="th-">ZIP</th>
+                </tr>
+                </thead>
+                <tbody align="center">
+                <tr th:each="employee : ${listEmployee}">
+                    <td align="left" th:text="${employee.firstName}"></td>
+                    <td align="left" th:text="${employee.lastName}"></td>
+                    <td align="center" th:text="${employee.getAge}"></td>
+                    <td align="left" th:text="${employee.address1 + ', ' + employee.address2}"></td>
+                    <td align="left" th:text="${employee.city}"></td>
+                    <td align="left" th:text="${employee.getStateName()}"></td>
+                    <td align="center" th:text="${employee.zip}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center">
+                <a th:href="@{/employee/registration}">Return to Employee Registration</a>
+            </div>
+        </div>
     </div>
 </div>
 </body>
