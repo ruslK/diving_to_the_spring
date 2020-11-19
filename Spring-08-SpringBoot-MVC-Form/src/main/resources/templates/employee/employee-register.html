@@ -3,6 +3,26 @@
 <head>
     <script th:replace="fragments/bootsrapdata :: bootstrap"></script>
     <title>Employee Registration</title>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 </head>
 <body>
 <div class="container d-flex justify-content-center">
@@ -19,22 +39,29 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form method="post" action="#" th:action="@{/employee/employees}" th:object="${newEmployee}">
+                        <form method="post" action="#"
+                              th:action="@{/employee/employees}"
+                              th:object="${newEmployee}"
+                              class="needs-validation" novalidate
+                        >
                             <div class="form-row">
                                 <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
                                     <label for="firstName">First name</label>
                                     <input type="text" class="form-control" id="firstName"
                                            placeholder="Enter First Name" value="" required th:field="*{firstName}"/>
+                                    <div class="invalid-feedback">Please Enter First Name</div>
                                 </div>
                                 <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
                                     <label for="lastName">Last name</label>
                                     <input type="text" class="form-control" id="lastName"
                                            placeholder="Enter Last Name" value="" required th:field="*{lastName}">
+                                    <div class="invalid-feedback">Please Enter Last Name</div>
                                 </div>
                                 <div class="col-xl-2 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
                                     <label for="dob">Date of Birth</label>
                                     <input type="date" class="form-control" id="dob" placeholder="MM/DD/YYYY" required
                                            th:field="*{dob}">
+                                    <div class="invalid-feedback">Please Provide DOB</div>
                                 </div>
                             </div>
 
@@ -43,11 +70,18 @@
                                     <label for="email">E-Mail</label>
                                     <input type="email" class="form-control" id="email"
                                            placeholder="Enter Email Address" value="" required th:field="*{email}"/>
+                                    <div class="invalid-feedback">Please Provide Email</div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
                                     <label for="password">Password</label>
                                     <input type="password" class="form-control" id="password"
-                                           value="" required th:field="*{password}">
+                                           value="" required th:field="*{password}"
+                                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"
+                                           title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                    >
+                                    <div class="invalid-feedback">Must contain at least one number and one uppercase and
+                                        lowercase letter, and at least 8 or more characters
+                                    </div>
                                 </div>
                             </div>
 
@@ -56,6 +90,7 @@
                                     <label for="address">Address</label>
                                     <input type="text" class="form-control" id="address"
                                            placeholder="Enter Address" value="" required th:field="*{address1}"/>
+                                    <div class="invalid-feedback">Please Enter Address</div>
                                 </div>
                             </div>
 
@@ -63,7 +98,7 @@
                                 <div class="col-xl-612 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
                                     <label for="address2">Address2</label>
                                     <input type="text" class="form-control" id="address2"
-                                           placeholder="Enter Address2" value="" required th:field="*{address2}"/>
+                                           placeholder="Enter Address2" value="" th:field="*{address2}"/>
                                 </div>
                             </div>
 
@@ -72,6 +107,7 @@
                                     <label for="city">City</label>
                                     <input type="text" class="form-control" id="city"
                                            placeholder="Enter City" value="" required th:field="*{city}"/>
+                                    <div class="invalid-feedback">Please Enter City</div>
                                 </div>
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     <label for="state">State</label>
@@ -80,13 +116,15 @@
                                         <option th:each="st : ${states}" th:value="${st.getKey()}"
                                                 th:text="${st.getValue()}"></option>
                                     </select>
+                                    <div class="invalid-feedback">Please Select State</div>
                                 </div>
                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-2">
                                     <label for="zip">ZIP</label>
                                     <input type="text" class="form-control"
                                            id="zip" placeholder="Enter ZIP" required th:field="*{zip}"
-                                           minlength="5" maxlength="5"
+                                           pattern="[0-9]{5}"
                                     >
+                                    <div class="invalid-feedback">Enter ZIP</div>
                                 </div>
                             </div>
 
