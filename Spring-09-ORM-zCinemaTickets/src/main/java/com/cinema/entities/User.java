@@ -5,10 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user_accounts")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,11 +23,7 @@ public class User extends BaseEntity {
         this.username = username;
     }
 
-    @OneToMany(mappedBy = "user", cascade = {
-            CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST},
-            fetch = FetchType.LAZY)
-    private List<Ticket> ticketList;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private UserAccount userAccount;
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "account_detail_id")
+    private Account account;
 }

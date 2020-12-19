@@ -6,33 +6,36 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 
 @Entity
-@Table(name = "userAccounts")
+@Table(name = "account_details")
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserAccount extends BaseEntity {
+public class Account extends BaseEntity {
 
     private String name;
     private String address;
     private String country;
+    private String state;
     private String city;
-    private int postalCode;
+    private Integer age;
+    private String postalCode;
 
     @Enumerated(value = EnumType.STRING)
-    private Roles role;
+    private Roles role = Roles.User;
 
-    public UserAccount(String name, String address, String country, String city, @Max(5) int postalCode, Roles role) {
+    @OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
+    private User user;
+
+    public Account(String name, String address, String country, String state, String city, Integer age, String postalCode, Roles role) {
         this.name = name;
         this.address = address;
         this.country = country;
+        this.state = state;
         this.city = city;
+        this.age = age;
         this.postalCode = postalCode;
         this.role = role;
     }
-
-    @OneToOne(mappedBy = "userAccount", fetch = FetchType.LAZY)
-    private User user;
 }

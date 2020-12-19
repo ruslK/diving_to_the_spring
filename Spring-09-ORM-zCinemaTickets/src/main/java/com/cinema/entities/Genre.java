@@ -4,12 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "genres")
@@ -23,6 +22,6 @@ public class Genre extends BaseEntity {
         this.name = name;
     }
 
-    @ManyToMany(mappedBy = "genre", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<Movie> movieSet = new HashSet<>();
+    @ManyToMany(mappedBy = "genreSet")
+    private List<Movie> movieSet = new ArrayList<>();
 }

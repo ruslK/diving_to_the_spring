@@ -4,8 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "locations")
@@ -15,15 +16,22 @@ import java.util.List;
 public class Location extends BaseEntity {
 
     private String name;
-    private String latitude;
-    private String longitude;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
+    private String postalCode;
+    private String country;
+    private String state;
+    private String city;
+    private String address;
 
-    public Location(String name) {
+    public Location(String name, BigDecimal latitude, BigDecimal longitude, String postalCode, String country, String state, String city, String address) {
         this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.postalCode = postalCode;
+        this.country = country;
+        this.state = state;
+        this.city = city;
+        this.address = address;
     }
-
-    @OneToMany(mappedBy = "location", cascade = {
-            CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST},
-            fetch = FetchType.LAZY)
-    private List<CinemaHall> cinemaHall;
 }

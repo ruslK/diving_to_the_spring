@@ -15,14 +15,12 @@ import java.time.LocalDateTime;
 public class Ticket extends BaseEntity {
 
     @Column(columnDefinition = "TIMESTAMP")
-    private LocalDateTime dateTime;
+    private LocalDateTime localDateTime;
+    private Integer rowNumber;
+    private Integer seatNumber;
 
-    private int rowNumber;
-
-    private int seatNumber;
-
-    public Ticket(LocalDateTime dateTime, int rowNumber, int seatNumber) {
-        this.dateTime = dateTime;
+    public Ticket(int rowNumber, int seatNumber, LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
         this.rowNumber = rowNumber;
         this.seatNumber = seatNumber;
     }

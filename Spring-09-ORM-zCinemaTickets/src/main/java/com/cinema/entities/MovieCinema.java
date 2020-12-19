@@ -10,17 +10,17 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "movieCinemas")
+@Table(name = "movie_cinemas")
 @Getter
 @Setter
 @NoArgsConstructor
 public class MovieCinema extends BaseEntity {
 
     @Column(columnDefinition = "TIMESTAMP")
-    private LocalDateTime dateTime;
+    private LocalDateTime localDateTime;
 
     public MovieCinema(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+        this.localDateTime = dateTime;
     }
 
     @OneToMany(mappedBy = "movieCinema", cascade = {
@@ -29,8 +29,8 @@ public class MovieCinema extends BaseEntity {
     private List<Ticket> ticketList;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cinema_hall_id")
-    private CinemaHall cinemaHall;
+    @JoinColumn(name = "cinema_id")
+    private Cinema cinema;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id")
