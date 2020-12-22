@@ -5,6 +5,7 @@ import com.cinema.enums.MovieState;
 import com.cinema.enums.MovieType;
 import com.cinema.enums.Roles;
 import com.cinema.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +24,9 @@ public class DataGenerator implements CommandLineRunner {
     private final UserRepository userRepository;
     private final MovieCinemaRepository movieCinemaRepository;
     private final TicketRepository ticketRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
 
     public DataGenerator(MovieRepository movieRepository, CinemaRepository cinemaRepository, GenreRepository genreRepository, UserRepository userRepository, MovieCinemaRepository movieCinemaRepository, TicketRepository ticketRepository) {
         this.movieRepository = movieRepository;
@@ -156,6 +160,13 @@ public class DataGenerator implements CommandLineRunner {
         createMoviesAndGenres();
         scheduleMovies();
         bookAMovie();
+
+        System.out.println("++++++++++++++++++++++++++++++++++");
+        List<Account> list = accountRepository.findAllByAgeGreaterThan(40);
+        for (Account account: list) {
+            System.out.println(account.toString());
+        }
+        System.out.println("++++++++++++++++++++++++++++++++++");
     }
 
     /**
