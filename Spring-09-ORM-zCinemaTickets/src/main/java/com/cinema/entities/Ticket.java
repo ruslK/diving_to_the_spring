@@ -32,4 +32,13 @@ public class Ticket extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "move_cinema_id")
     private MovieCinema movieCinema;
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "localDateTime=" + localDateTime +
+                ", rowNumber=" + rowNumber +
+                ", seatNumber=" + seatNumber +
+                '}';
+    }
 }

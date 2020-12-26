@@ -3,6 +3,7 @@ package com.cinema.entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -35,4 +36,11 @@ public class MovieCinema extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id")
     private Movie movie;
+
+    @Override
+    public String toString() {
+        return "MovieCinema{" +
+                "localDateTime=" + localDateTime +
+                '}';
+    }
 }
