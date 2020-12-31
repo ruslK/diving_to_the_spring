@@ -35,7 +35,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     @Query("select t from Ticket t where t.localDateTime between :d1 and :d2")
     List<Ticket> getTicketsByDateRange(LocalDateTime d1, LocalDateTime d2);
 
-    // ------------------- Native QUERIES ------------------- //
+    // -------------------
+    // QUERIES ------------------- //
 
     //Write a native query to count the number of tickets a user bought
     @Query(value = "select count(*) from tickets where user_id = :id", nativeQuery = true)
