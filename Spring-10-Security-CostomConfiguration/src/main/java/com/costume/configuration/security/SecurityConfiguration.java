@@ -1,4 +1,4 @@
-package com.costume.configuration.controller.security;
+package com.costume.configuration.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
