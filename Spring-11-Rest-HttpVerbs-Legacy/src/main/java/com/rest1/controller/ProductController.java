@@ -31,14 +31,11 @@ public class ProductController {
     @DeleteMapping(value = "/products/{id}")
     public @ResponseBody
     List<Product> deleteProduct(@PathVariable("id") Long id) {
-        productService.delete(id);
-        return productService.getProducts();
+        return productService.delete(id);
     }
 
     @PostMapping("/products")
     public @ResponseBody List<Product> postProduct(@RequestBody() Product  product) {
-        System.out.println(product);
-        productService.createProduct(product);
-        return productService.getProducts();
+        return productService.createProduct(product);
     }
 }
