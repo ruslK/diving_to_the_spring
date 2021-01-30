@@ -12,12 +12,12 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "account_details")
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@Table(name = "account_details")
 @ToString
-@JsonIgnoreProperties(value = {"state", "postalCode", "age"}, ignoreUnknown = true)
+@JsonIgnoreProperties(value = {"state","postalCode"},ignoreUnknown = true)
 public class Account extends BaseEntity {
 
     private String name;
@@ -26,14 +26,16 @@ public class Account extends BaseEntity {
     private String state;
     private String city;
     private Integer age;
+    @Column(name = "postal_code")
     private String postalCode;
 
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private Roles role = Roles.USER;
 
-    @OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "account")
     @JsonBackReference
     private User user;
+
 
     public Account(String name, String address, String country, String state, String city, Integer age, String postalCode, Roles role) {
         this.name = name;

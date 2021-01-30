@@ -13,19 +13,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "genres")
 @NoArgsConstructor
 @Getter
 @Setter
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer"})
+@JsonIgnoreProperties(value={"hibernate_Lazy_Initializer"},ignoreUnknown = true)
 public class Genre extends BaseEntity {
+
     private String name;
+
+    @ManyToMany(mappedBy = "genreList")
+    @JsonIgnore
+    private List<Movie> movieList = new ArrayList<>();
 
     public Genre(String name) {
         this.name = name;
     }
-
-    @ManyToMany(mappedBy = "genreSet")
-    @JsonIgnore
-    private List<Movie> movieSet = new ArrayList<>();
 }

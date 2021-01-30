@@ -15,16 +15,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "movies")
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer"})
+@JsonIgnoreProperties(value = {"hibernate_Lazy_Initializer"}, ignoreUnknown = true)
 public class Movie extends BaseEntity {
 
     private String name;
-    private Integer price;
+
+    @Column(columnDefinition = "DATE")
+    private LocalDate releaseDate;
+
+    private Integer duration;
+
+    @Column(columnDefinition = "text")
+    private String summary;
 
     @Enumerated(EnumType.STRING)
     private MovieType type;
@@ -32,27 +38,21 @@ public class Movie extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MovieState state;
 
-    @Column(columnDefinition = "DATE")
-    private LocalDate releaseDate;
-
-    private BigDecimal duration;
-    @Column(columnDefinition = "text")
-    private String summary;
-
-    public Movie(String name, LocalDate releaseDate, Integer price, MovieType type, MovieState state, BigDecimal duration) {
-        this.name = name;
-        this.price = price;
-        this.type = type;
-        this.state = state;
-        this.releaseDate = releaseDate;
-        this.duration = duration;
-    }
-
+    private BigDecimal price;
 
     @ManyToMany
-    @JoinTable(name = "movies_genres_rel",
-            joinColumns = @JoinColumn(name = "movie_id"),
+    @JoinTable(name = "movie_genre_rel",
+            joinColumns = @JoinColumn(name="movie_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private List<Genre> genreSet = new ArrayList<>();
+    private List<Genre> genreList = new ArrayList<>();
+
+    public Movie(String name, LocalDate releaseDate, Integer duration,MovieType type, MovieState state, BigDecimal price) {
+        this.name = name;
+        this.releaseDate = releaseDate;
+        this.duration = duration;
+        this.type = type;
+        this.state = state;
+        this.price = price;
+    }
 
 }

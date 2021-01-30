@@ -11,27 +11,28 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_accounts")
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer"})
+@Table(name = "user_account")
+@JsonIgnoreProperties(value={"hibernateLazyInitializer"},ignoreUnknown = true)
 public class User extends BaseEntity {
 
     private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
     private String username;
+
+    @OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinColumn(name = "account_details_id")
+    @JsonManagedReference
+    private Account account;
 
     public User(String email, String password, String username) {
         this.email = email;
         this.password = password;
         this.username = username;
     }
-
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "account_detail_id")
-    @JsonBackReference
-    private Account account;
 }

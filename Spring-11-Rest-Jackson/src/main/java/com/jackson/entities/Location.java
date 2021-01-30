@@ -10,26 +10,25 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "locations")
 @NoArgsConstructor
 @Getter
 @Setter
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer"})
+@JsonIgnoreProperties(value={"hibernate_Lazy_Initializer"},ignoreUnknown = true)
 public class Location extends BaseEntity {
 
     private String name;
     private BigDecimal latitude;
-    private BigDecimal longitude;
+    private BigDecimal langitude;
     private String postalCode;
     private String country;
     private String state;
     private String city;
     private String address;
 
-    public Location(String name, BigDecimal latitude, BigDecimal longitude, String postalCode, String country, String state, String city, String address) {
+    public Location(String name, BigDecimal latitude, BigDecimal langitude, String postalCode, String country, String state, String city, String address) {
         this.name = name;
         this.latitude = latitude;
-        this.longitude = longitude;
+        this.langitude = langitude;
         this.postalCode = postalCode;
         this.country = country;
         this.state = state;

@@ -11,12 +11,19 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "movie_cinemas")
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer"})
+@JsonIgnoreProperties(value={"hibernate_Lazy_Initializer"},ignoreUnknown = true)
 public class MovieCinema extends BaseEntity {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cinema_id")
+    private Cinema cinema;
 
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime localDateTime;
@@ -25,23 +32,10 @@ public class MovieCinema extends BaseEntity {
         this.localDateTime = dateTime;
     }
 
-    @OneToMany(mappedBy = "movieCinema", cascade = {
-            CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST},
-            fetch = FetchType.LAZY)
-    private List<Ticket> ticketList;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cinema_id")
-    private Cinema cinema;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "movie_id")
-    private Movie movie;
-
     @Override
     public String toString() {
         return "MovieCinema{" +
-                "localDateTime=" + localDateTime +
+                "dateTime=" + localDateTime +
                 '}';
     }
 }

@@ -8,37 +8,31 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tickets")
 @NoArgsConstructor
 @Getter
 @Setter
 public class Ticket extends BaseEntity {
 
-    @Column(columnDefinition = "TIMESTAMP")
-    private LocalDateTime localDateTime;
-    private Integer rowNumber;
+    @Column(name = "seat_number")
     private Integer seatNumber;
 
-    public Ticket(int rowNumber, int seatNumber, LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
-        this.rowNumber = rowNumber;
-        this.seatNumber = seatNumber;
-    }
+    @Column(name = "row_number")
+    private Integer rowNumber;
+
+    @Column(columnDefinition = "TIMESTAMP")
+    private LocalDateTime localDateTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "move_cinema_id")
+    @JoinColumn(name = "movie_cinema_id")
     private MovieCinema movieCinema;
 
-    @Override
-    public String toString() {
-        return "Ticket{" +
-                "localDateTime=" + localDateTime +
-                ", rowNumber=" + rowNumber +
-                ", seatNumber=" + seatNumber +
-                '}';
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_account_id")
+    private User user;
+
+    public Ticket(Integer seatNumber, Integer rowNumber, LocalDateTime dateTime) {
+        this.seatNumber = seatNumber;
+        this.rowNumber = rowNumber;
+        this.localDateTime = dateTime;
     }
 }
