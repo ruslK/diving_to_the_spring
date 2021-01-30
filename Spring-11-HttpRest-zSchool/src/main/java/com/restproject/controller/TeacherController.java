@@ -1,7 +1,8 @@
 package com.restproject.controller;
 
-import com.restproject.entity.Address;
+import com.restproject.entity.ResponseWrapper;
 import com.restproject.entity.Teacher;
+import com.restproject.repository.StudentRepository;
 import com.restproject.repository.TeacherRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,9 +16,11 @@ import java.util.List;
 public class TeacherController {
 
     private final TeacherRepository teacherRepository;
+    private final StudentRepository studentRepository;
 
-    public TeacherController(TeacherRepository teacherRepository) {
+    public TeacherController(TeacherRepository teacherRepository, StudentRepository studentRepository) {
         this.teacherRepository = teacherRepository;
+        this.studentRepository = studentRepository;
     }
 
     @GetMapping("/all")
@@ -38,6 +41,12 @@ public class TeacherController {
         teacherRepository.save(teacher);
         return ResponseEntity.status(HttpStatus.CREATED).headers(headers)
                 .body(teacherRepository.findByUsername(teacher.getUsername()));
+    }
+
+    @GetMapping("/students")
+    public ResponseEntity<ResponseWrapper> getAllStudents() {
+        return ResponseEntity.ok(new ResponseWrapper("students are successfully retrieved",
+                studentRepository.findAll()));
     }
 }
 
