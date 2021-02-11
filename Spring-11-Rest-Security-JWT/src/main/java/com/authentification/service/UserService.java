@@ -2,8 +2,8 @@ package com.authentification.service;
 
 import com.authentification.entity.User;
 import com.authentification.enums.UserState;
+import com.authentification.exeption.ServiceException;
 import com.authentification.repository.UserRepository;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +45,8 @@ public class UserService {
         }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setIsVerified(false);
+        user.setIsDeleted(false);
+        user.setState(UserState.ACTIVE);
         return userRepository.save(user);
     }
 

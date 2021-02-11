@@ -27,10 +27,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/authenticate")
+                .antMatchers(permittedUrls)
                 .permitAll()
                 .anyRequest()
                 .authenticated();
         http.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
+    private static final String[] permittedUrls = {
+            "/authenticate",
+            "/api/v1/users/createUser",
+            "/swagger-ui.html",
+            "/v3/api-docs/**",
+            "/configuration/security",
+            "/swagger-ui/**"
+    };
 }
