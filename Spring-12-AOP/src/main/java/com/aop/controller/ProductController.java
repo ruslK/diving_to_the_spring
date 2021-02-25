@@ -45,23 +45,18 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<List<Product>> createProduct(@RequestBody() Product product) {
-        List<Product> set = productService.createProduct(product);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .header("Version", "V1")
-                .header("Operation", "Create")
-                .body(set);
+    public List<Product> createProduct(@RequestBody() Product product) {
+        return productService.createProduct(product);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<List<Product>> updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
+    public List<Product> updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("Version", "V1");
         map.add("Operation", "Update");
 
         List<Product> list = productService.updateProduct(id, product);
-        return new ResponseEntity<>(list, map, HttpStatus.OK);
+        return list;
     }
 
     @GetMapping("/read")
