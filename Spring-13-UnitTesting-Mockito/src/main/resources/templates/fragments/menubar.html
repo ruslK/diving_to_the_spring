@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="menuNavBar">
+    <div class="nav-left-sidebar sidebar-dark">
+        <div class="menu-list">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+                <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                               data-target="#menuAdministrator" aria-controls="menuAdministrator"><i
+                                    class="fas fa-diagnoses"></i>Administrator</a>
+                            <div id="menuAdministrator" class="submenu collapse show" style="">
+                                <ul class="nav flex-column">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" th:href="@{/administrator/users}">Manage Users</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" th:href="@{/administrator/projects}">Manage Projects</a>
+                                        </li>
+                                    </ul>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                               data-target="#menuManger" aria-controls="menuManger"><i class="fas fa-cubes"></i>Manager</a>
+                            <div id="menuManger" class="submenu collapse show" style="">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/manager/tasks}">Manage Tasks</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/manager/status}">Project Status</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                               data-target="#menuEmployee" aria-controls="menuEmployee"><i class="fas fa-child"></i>Employee</a>
+                            <div id="menuEmployee" class="submenu collapse show" style="">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/employee/tasks">Pending Task</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/employee/archive">Archive</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>

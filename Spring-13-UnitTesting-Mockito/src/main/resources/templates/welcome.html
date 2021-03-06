@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/head :: header"></div>
+    <title>Ticketing Project - Welcome</title>
+</head>
+
+<body>
+<div class="dashboard-main-wrapper">
+
+    <div th:replace="/fragments/header :: header"></div>
+    <div th:replace="fragments/menubar :: menuNavBar"></div>
+
+
+    <div class="dashboard-wrapper">
+        <div class="dashboard-ecommerce">
+            <div class="container-fluid dashboard-content">
+                <h2 class="pageheader-title" align="center">
+                    Welcome to Ticket Project
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/fragments/javascript :: js"></div>
+</body>
+</html>

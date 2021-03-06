@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/head :: header"></div>
+    <title>Create/Update Project - Ticketing Project</title>
+
+</head>
+
+<body>
+<div class="dashboard-main-wrapper">
+    <div th:replace="/fragments/header :: header"></div>
+    <div th:replace="fragments/menubar :: menuNavBar"></div>
+
+
+    <div class="dashboard-wrapper">
+        <div class="dashboard-ecommerce">
+            <div class="container-fluid dashboard-content">
+                <div class="card">
+                    <h5 class="card-header">Add New Project</h5>
+                    <div class="card-body">
+                        <form class="needs-validation" novalidate
+                              method="post"
+                              th:action="@{/administrator/projects}"
+                              th:object="${newProject}"
+                              id="createuser">
+                            <div class="form-row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-4">
+                                    <label for="projectName">Project Name</label>
+                                    <input type="text" class="form-control" id="projectName"
+                                           name="projectName"
+                                           placeholder="Enter Project name" value=""
+                                           minlength="5"
+                                           maxlength="64"
+                                           required
+                                           th:field="*{projectName}"
+                                    />
+                                    <div class="invalid-feedback">
+                                        Please provide a valid Project Name.
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-4">
+                                    <label for="projectCode">Project Code</label>
+                                    <input type="text" class="form-control" id="projectCode"
+                                           name="projectCode"
+                                           placeholder="Enter Project name" value="" required
+                                           minlength="5"
+                                           maxlength="64"
+                                           th:field="*{projectCode}"
+                                           th:readonly="${newProject.projectCode != null}"
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-4">
+                                    <label for="assignedManage">Assigned Manage</label>
+                                    <select name="assignedManage" class="form-control"
+                                            id="assignedManage"
+                                            placeholder="Select Manager"
+                                            required
+                                            th:field="*{assignedManager}"
+                                    >
+                                        <span th:if="${newProject.assignedManager != null}">
+                                            <option th:each="manager : ${managers}" th:value="${manager.userName}"
+                                                    th:text="${manager.firstName + ' ' + manager.lastName}"
+                                                    th:selected="${manager.userName} == ${newProject.assignedManager.userName}"></option>
+                                        </span>
+                                        <span th:if="${newProject.assignedManager == null}">
+                                            <option value=" ''">Select Manager</option>
+                                            <option th:each="manager : ${managers}" th:value="${manager.userName}"
+                                                    th:text="${manager.firstName + ' ' + manager.lastName}"
+                                            ></option>
+                                        </span>
+
+
+                                    </select>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-4">
+                                    <label for="projectDetails">Project Start Dates</label>
+                                    <input type="date" class="input-sm form-control" id="startDate" name="startDate"
+                                           placeholder="Start Date MM/DD/YYYY"
+                                           th:field="*{startDate}">
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-4">
+                                    <label for="projectDetails">Project End Dates</label>
+                                    <input type="date" class="input-sm form-control" id="endDate" name="endDate"
+                                           placeholder="End Date MM/DD/YYYY"
+                                           th:field="*{endDate}"
+                                    >
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-4">
+                                    <label for="projectDetails">Project Details</label>
+                                    <textarea class="form-control" id="projectDetails"
+                                              name="projectDetails"
+                                              placeholder="Enter Project Details" value="" required
+                                              rows="5"
+                                              th:field="*{projectDetails}">
+                                                        </textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary float-right">Save</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card" th:hidden="${allProject.size() == 0}">
+                    <h5 class="card-header">Projects List</h5>
+                    <div class="card-body">
+                        <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0"
+                               width="100%">
+                            <thead align="center">
+                            <tr>
+                                <th class="th-">Project Code</th>
+                                <th class="th-sm">Project Name</th>
+                                <th class="th-sm">Start / End Date</th>
+                                <th class="th-sm">Manager</th>
+                                <th class="th-sm">Status</th>
+                                <th class="th-sm">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody align="center">
+                            <tr th:each="project : ${allProject}">
+                                <td align="left" th:text="${project.projectCode}"></td>
+                                <td align="left" th:text="${project.projectName}"></td>
+                                <td align="center"
+                                    th:text="${#temporals.format(project.startDate, 'MM-dd-yyyy') + ' - ' + #temporals.format(project.endDate, 'MM-dd-yyyy') }"></td>
+                                <td th:text="${project.assignedManager.firstName + ' ' + project.assignedManager.lastName}"></td>
+                                <td align="left" th:text="${project.projectStatus}"></td>
+                                <td align="center">
+                                    <a th:href="@{/administrator/projects/update/{projectCode} (projectCode = ${project.projectCode})}"
+                                       class="btn btn-rounded btn-primary"
+                                       data-target="#addingProjectModal">
+                                        Update
+                                    </a>
+                                    <a th:href="@{/administrator/projects/delete/{projectCode} (projectCode = ${project.projectCode})}"
+                                       class="btn btn-rounded btn-danger">Delete</a>
+                                    <a th:href="@{/administrator/projects/complete/{projectCode} (projectCode = ${project.projectCode})}"
+                                       class="btn btn-rounded btn-info">Complete</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/fragments/javascript :: js"></div>
+</body>
+</html>

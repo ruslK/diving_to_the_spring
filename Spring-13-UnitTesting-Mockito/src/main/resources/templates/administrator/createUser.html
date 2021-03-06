@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/head :: header"></div>
+    <title>Create/Update User - Ticketing Project</title>
+</head>
+
+<body>
+<div class="dashboard-main-wrapper">
+    <div th:replace="/fragments/header :: header"></div>
+    <div th:replace="fragments/menubar :: menuNavBar"></div>
+
+    <div class="dashboard-wrapper">
+        <div class="dashboard-ecommerce">
+            <div class="container-fluid dashboard-content">
+                <div class="card">
+                    <h5 class="card-header">Add New User</h5>
+                    <div class="card-body">
+                        <form method="post"
+                              th:action="@{/administrator/users}"
+                              th:object="${newUser}"
+                              class="needs-validation" novalidate
+                              action="#"
+                              id="createuser">
+                            <div class="form-row">
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                                    <label for="firstName">First name</label>
+                                    <input type="text" class="form-control" id="firstName"
+                                           name="firstName"
+                                           placeholder="Enter First name" value="" required
+                                           th:field="*{firstName}"
+                                    />
+                                    <!--                                    <div class="invalid-feedback">-->
+                                    <!--                                        Please Enter First Name-->
+                                    <!--                                    </div>-->
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                                    <label for="lastName">Last name</label>
+                                    <input type="text" class="form-control" id="lastName"
+                                           name="lastName"
+                                           placeholder="Enter First name" value="" required
+                                           th:field="*{lastName}"
+                                    />
+                                    <!--                                    <div class="invalid-feedback">-->
+                                    <!--                                        Please Enter Last Name-->
+                                    <!--                                    </div>-->
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                                    <label for="emailAddress">Email</label>
+                                    <input type="text" class="form-control" id="emailAddress"
+                                           name="email"
+                                           placeholder="Enter First name" value=""
+                                           required
+                                           th:readonly="${newUser.userName != null}"
+                                           th:field="*{userName}"
+                                    />
+                                    <!--                                    <div class="invalid-feedback">-->
+                                    <!--                                        Please Enter Email-->
+                                    <!--                                    </div>-->
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                                    <label for="phoneNumber">Phone Number</label>
+                                    <input type="text" class="form-control" id="phoneNumber"
+                                           name="phoneNumber"
+                                           placeholder="Enter Phone Number" value="" required
+                                           th:field="*{phone}">
+                                    <!--                                           pattern="^\d{10}"-->
+
+                                </div>
+                                <!--                                <div class="invalid-feedback">-->
+                                <!--                                    Please Enter 10 Digits Mobile Number-->
+                                <!--                                </div>-->
+                            </div>
+                            <div class="form-row">
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password"
+                                           name="password"
+                                           placeholder="Enter Password" value="" required
+                                           th:field="*{password}">
+                                    <!--                                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"-->
+
+                                </div>
+                                <!--                                <div class="invalid-feedback">-->
+                                <!--                                    Please Enter Password-->
+                                <!--                                </div>-->
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                                    <label for="confirmpassword">Confirm Password</label>
+                                    <input type="password" class="form-control" id="confirmpassword"
+                                           placeholder="Enter Confirm Password" value="" required>
+                                    <!--                                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"-->
+
+                                </div>
+                                <!--                                <div class="invalid-feedback">-->
+                                <!--                                    Please Enter Confirm Password-->
+                                <!--                                </div>-->
+                            </div>
+                            <div class="form-row">
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                                    <label>Gender:</label>
+                                    <div>
+                                        <label class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" name="gender"
+                                                   class="custom-control-input" value="MALE"
+                                                   th:field="*{gender}"
+                                            >
+                                            <span class="custom-control-label">Male</span>
+                                        </label>
+                                        <label class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" name="gender"
+                                                   class="custom-control-input" value="FEMALE"
+                                                   th:field="*{gender}">
+                                            <span class="custom-control-label">Female</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                                    <label for="role">Role</label>
+                                    <select name="role" th:filed="*{role}" class="form-control" id="role"
+                                            placeholder="Select Role"
+                                            required>
+                                        <span th:if="${newUser.role != null}">
+                                            <option th:each="role: ${roles}" th:value="${role.id}"
+                                                    th:text="${role.description}"
+                                                    th:selected="${role.id} == ${newUser.role.id}"></option>
+                                        </span>
+                                        <span th:if="${newUser.role == null}">
+                                            <option th:value=" ''" th:text="Select"></option>
+                                            <option th:each="role: ${roles}" th:value="${role.id}"
+                                                    th:text="${role.description}"
+                                                    ></option>
+                                        </span>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary float-right">Save</button>
+                            <button type="reset" class="btn btn-secondary float-left">Reset</button>
+
+
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card" th:hidden="${allUsers.size() == 0}">
+                    <h5 class="card-header">Users List</h5>
+                    <div class="card-body">
+                        <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0"
+                               width="100%">
+                            <thead align="center">
+                            <tr>
+                                <th class="th-">Name
+
+                                </th>
+                                <th class="th-sm">E-Mail (username)
+
+                                </th>
+                                <th class="th-sm">Gender
+
+                                </th>
+                                <th class="th-sm">Phone
+
+                                </th>
+                                <th class="th-sm">Role
+
+                                </th>
+                                <th class="th-sm">Action
+
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody align="center">
+                            <tr th:each="rowUser : ${allUsers}">
+                                <td align="left" th:text="${rowUser.firstName + ' ' + rowUser.lastName}"></td>
+                                <td align="left" th:text="${rowUser.userName}"></td>
+                                <td th:text="${rowUser.gender}"></td>
+                                <td th:text="${rowUser.phone}"></td>
+                                <td align="left" th:text="${rowUser.role.description}"></td>
+                                <td align="center">
+                                    <a th:href="@{/administrator/users/update/{id} (id = ${rowUser.userName})}"
+                                       class="btn btn-rounded btn-primary">
+                                        Update
+                                    </a>
+                                    <a th:href="@{/administrator/users/delete/{id} (id = ${rowUser.userName})}"
+                                       class="btn btn-rounded btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/fragments/javascript :: js"></div>
+</body>
+</html>

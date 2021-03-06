@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/head :: header"></div>
+    <title>Task Assign - Ticketing Project</title>
+</head>
+
+<body>
+<div class="dashboard-main-wrapper">
+    <div th:replace="/fragments/header :: header"></div>
+    <div th:replace="/fragments/menubar :: menuNavBar"></div>
+
+    <div class="dashboard-wrapper">
+        <div class="dashboard-ecommerce">
+            <div class="container-fluid dashboard-content">
+                <div class="card">
+                    <h5 class="card-header">Add New Task</h5>
+                    <div class="card-body">
+                        <form class="needs-validation" novalidate
+                              method="post"
+                              th:object="${newTask}"
+                              th:action="@{${newTask.id == null ? '/manager/tasks' : '/manager/tasks/update/' + newTask.id}}"
+                              id="createTask">
+                            <div class="form-row">
+                                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12 mb-4">
+                                    <label for="projectF">Project</label>
+                                    <select name="projectF" class="form-control"
+                                            id="projectF"
+                                            placeholder="Select Project"
+                                            required
+                                            th:field="*{project}"
+                                    >
+
+                                        <span th:if="${newTask.project != null}">
+                                            <option th:each="pr : ${projects}" th:value="${pr.projectCode}"
+                                                    th:text="${pr.projectCode + '-' + pr.projectName}"
+                                                    th:selected="${pr.projectName} == ${newTask.project.projectName}"></option>
+                                        </span>
+                                        <span th:if="${newTask.project == null}">
+                                            <option value=" ''">Select Project</option>
+                                           <option th:each="pr : ${projects}" th:value="${pr.projectCode}"
+                                                   th:text="${pr.projectName}"
+                                           ></option>
+                                        </span>
+                                    </select>
+                                </div>
+
+                                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12 mb-4">
+                                    <label for="employee">Assigned Employee</label>
+                                    <select name="employee" class="form-control"
+                                            id="employee"
+                                            placeholder="Select Employee"
+                                            required
+                                            th:field="*{assignedEmployee}"
+                                    >
+                                        <span th:if="${newTask.assignedEmployee != null}">
+                                            <option th:each="em : ${employees}" th:value="${em.userName}"
+                                                    th:text="${em.firstName + ' ' + em.lastName}"
+                                                    th:selected="${em.userName} == ${newTask.getAssignedEmployee.userName}"></option>
+                                        </span>
+                                        <span th:if="${newTask.assignedEmployee == null}">
+                                            <option value=" ''">Select Employee</option>
+                                          <option th:each="em : ${employees}" th:value="${em.userName}"
+                                                  th:text="${em.firstName + ' ' + em.lastName}"
+                                          ></option>
+                                        </span>
+                                    </select>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                                    <label for="taskSubject">Task Subject</label>
+                                    <input type="text" class="form-control" id="taskSubject"
+                                           name="taskSubject"
+                                           placeholder="Enter Task Subject" value="" required
+                                           th:field="*{taskSubject}"
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-4">
+                                    <label for="projectDetails">Details</label>
+                                    <textarea class="form-control" id="projectDetails"
+                                              name="projectDetails"
+                                              placeholder="Enter Project Details" value="" required
+                                              rows="5"
+                                              th:field="*{taskDetails}">
+                                                        </textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary float-right">Save</button>
+                        </form>
+                    </div>
+                </div>
+
+
+                <div class="card" th:hidden="${allTask.size() == 0}">
+                    <h5 class="card-header">Tasks List</h5>
+                    <div class="card-body">
+                        <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0"
+                               width="100%">
+                            <thead align="center">
+                            <tr>
+                                <th class="th-">Task ID</th>
+                                <th class="th-">Project</th>
+                                <th class="th-sm">Task Subject</th>
+                                <th class="th-sm">Assigned Employee</th>
+                                <th class="th-sm">Assigned Date</th>
+                                <th class="th-sm">Last Update Date</th>
+                                <th class="th-sm">Status</th>
+                                <th class="th-sm">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody align="center">
+                            <tr th:each="task : ${allTask}">
+                                <td align="center" th:text="${task.getId()}"></td>
+                                <td align="left"
+                                    th:text="${task.project.projectCode + '-' + task.project.projectName}"></td>
+                                <td align="left" th:text="${task.taskSubject}"></td>
+                                <td th:text="${task.assignedEmployee.firstName + ' ' + task.assignedEmployee.lastName}"></td>
+                                <td th:text="${#temporals.format(task.assignedDate, 'MM/dd/yyyy')}"></td>
+                                <td th:text="${#temporals.format(task.lastUpdateDate, 'MM/dd/yyyy')}"></td>
+                                <td align="left" th:text="${task.status}"></td>
+                                <td align="center">
+                                    <a th:href="@{/manager/tasks/update/{id} (id = ${task.id})}"
+                                       class="btn btn-rounded btn-primary">
+                                        Update
+                                    </a>
+                                    <a th:href="@{/manager/tasks/delete/{id} (id = ${task.id})}"
+                                       class="btn btn-rounded btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/fragments/javascript :: js"></div>
+</body>
+</html>
